@@ -1,0 +1,167 @@
+{
+ "items": [
+  {
+   "file": "empty.wasm",
+   "version": 1,
+   "sections": [],
+   "types": [],
+   "imports": [],
+   "exports": [],
+   "func_typeidx": [],
+   "tables": [],
+   "memories": [],
+   "globals": [],
+   "code_funcs": [],
+   "data_segments": [],
+   "imported_funcs": 0,
+   "total_funcs": 0,
+   "function_names": {},
+   "wasm_valid": true,
+   "wasm_imports": [],
+   "wasm_exports": []
+  },
+  {
+   "file": "adder.wasm",
+   "version": 1,
+   "sections": [
+    "type",
+    "import",
+    "function",
+    "memory",
+    "global",
+    "export",
+    "code",
+    "datacount",
+    "data"
+   ],
+   "types": [
+    {
+     "params": [],
+     "results": [
+      "i32"
+     ]
+    },
+    {
+     "params": [
+      "i32",
+      "i32"
+     ],
+     "results": [
+      "i32"
+     ]
+    }
+   ],
+   "imports": [
+    {
+     "module": "env",
+     "name": "log",
+     "kind": "func",
+     "detail": {
+      "typeidx": 0
+     }
+    }
+   ],
+   "func_typeidx": [
+    1
+   ],
+   "memories": [
+    {
+     "min": 1,
+     "max": 2,
+     "shared": false
+    }
+   ],
+   "globals": [
+    {
+     "valtype": "i32",
+     "mutable": false
+    }
+   ],
+   "exports": [
+    {
+     "name": "add",
+     "kind": "func",
+     "index": 1
+    },
+    {
+     "name": "memory",
+     "kind": "mem",
+     "index": 0
+    },
+    {
+     "name": "answer",
+     "kind": "global",
+     "index": 0
+    }
+   ],
+   "code_funcs": [
+    {
+     "local_count": 0,
+     "body_bytes": 6
+    }
+   ],
+   "data_segments": [
+    {
+     "mode": 0,
+     "memidx": 0,
+     "bytes": 2
+    }
+   ],
+   "data_count": 1,
+   "imported_funcs": 1,
+   "total_funcs": 2,
+   "function_names": {},
+   "wasm_valid": false
+  },
+  {
+   "file": "named.wasm",
+   "version": 1,
+   "sections": [
+    "type",
+    "function",
+    "start",
+    "code",
+    "custom"
+   ],
+   "types": [
+    {
+     "params": [],
+     "results": []
+    }
+   ],
+   "func_typeidx": [
+    0
+   ],
+   "start": 0,
+   "code_funcs": [
+    {
+     "local_count": 0,
+     "body_bytes": 1
+    }
+   ],
+   "imports": [],
+   "exports": [],
+   "memories": [],
+   "globals": [],
+   "data_segments": [],
+   "imported_funcs": 0,
+   "total_funcs": 1,
+   "function_names": {
+    "0": "boot"
+   },
+   "wasm_valid": true,
+   "wasm_imports": [],
+   "wasm_exports": []
+  },
+  {
+   "file": "badmagic.wasm",
+   "expect_error": "bad magic",
+   "wasm_valid": false
+  },
+  {
+   "file": "truncated.wasm",
+   "expect_warning": "truncated",
+   "wasm_valid": false
+  }
+ ]
+}
