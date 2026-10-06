@@ -29,13 +29,16 @@ function parse(bytes){
   if(r.version!==1)r.warnings.push('unusual version '+r.version);
   pos=8;
   try{
-    var lastId=0;
+    var ORDER=[1,2,3,4,5,6,7,8,9,12,10,11];
+    var lastRank=-1;
     while(pos<bytes.length){
       var id=u8(),size=vu(),poff=pos;
       var name=id<SECTION.length?SECTION[id]:'unknown('+id+')';
       var sec={id:id,name:name,offset:poff-1,size:size,payload_offset:poff};
       r.sections.push(sec);
-      if(id!==0){if(id<=lastId)r.warnings.push('section '+name+' out of order or duplicated');lastId=id;}
+      if(id!==0){var rank=ORDER.indexOf(id);
+        if(rank<0)r.warnings.push('unknown section id '+id);
+        else{if(rank<=lastRank)r.warnings.push('section '+name+' out of order or duplicated');lastRank=rank;}}
       var end=poff+size;
       if(end>bytes.length){r.warnings.push('truncated: section '+name+' extends past end of file');return r;}
       var save=pos;
