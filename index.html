@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WasmLens - what's really inside your .wasm files</title>
+<meta name="description" content="Free browser WebAssembly inspector: section map, type signatures, imports, exports, memory, globals, and engine validation. The file never leaves your machine.">
+<style>
+:root{--bg:#0b0e14;--panel:#121722;--line:#232c3d;--fg:#dbe4f0;--dim:#7d8ba1;--acc:#9d8cff}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:15px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+.wrap{max-width:880px;margin:0 auto;padding:0 22px}
+header.hero{padding:70px 0 40px;text-align:center}
+h1{font-size:44px;margin:0 0 10px}
+h1 span{color:var(--acc)}
+.tag{font-size:18px;color:var(--dim);max-width:640px;margin:0 auto 26px}
+a.btn{display:inline-block;background:var(--acc);color:#140f2e;font-weight:700;padding:13px 30px;border-radius:10px;text-decoration:none;font-size:16px}
+a.btn:hover{filter:brightness(1.1)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:36px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+.card h3{margin:0 0 6px;font-size:16px}
+.card p{margin:0;color:var(--dim);font-size:14px}
+.sec{padding:26px 0}
+.sec h2{font-size:24px;margin:0 0 10px}
+.sec p{color:var(--dim);margin:0 0 10px}
+ul{color:var(--dim);padding-left:20px}
+li{margin:4px 0}
+code{background:#0e131d;border:1px solid var(--line);border-radius:6px;padding:1px 6px;font-size:13px}
+footer{border-top:1px solid var(--line);margin-top:30px;padding:20px 0;color:var(--dim);font-size:13px;text-align:center}
+footer a{color:var(--acc);text-decoration:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <h1>Wasm<span>Lens</span></h1>
+  <p class="tag">What's really inside your .wasm files? Every section, type signature, import and export - plus a straight answer from the browser's own WebAssembly engine on whether it validates.</p>
+  <a class="btn" href="app.html">Open WasmLens</a>
+</header>
+<div class="grid">
+  <div class="card"><h3>Section map</h3><p>A visual breakdown of the binary: which sections exist, where they sit, and how many bytes each one eats.</p></div>
+  <div class="card"><h3>Engine verdict</h3><p>Alongside the structural parse, the file goes through your browser's real WebAssembly validator - the same check that gates execution.</p></div>
+  <div class="card"><h3>Types, imports, exports</h3><p>Function signatures decoded from the type section, cross-referenced with what the module imports and exports.</p></div>
+  <div class="card"><h3>Nothing uploads</h3><p>The parser runs in your browser against local bytes. Your binaries never leave your machine.</p></div>
+</div>
+<section class="sec">
+  <h2>What it reads</h2>
+  <ul>
+    <li>Header: magic and version, with hard rejection of non-wasm files</li>
+    <li>All 12 core sections: type, import, function, table, memory, global, export, start, element, code, data, datacount</li>
+    <li>Function signatures (<code>(i32, i32) -&gt; i32</code>) from the type section</li>
+    <li>Imports and exports with kind and index, correlated against the engine's own list</li>
+    <li>Memory limits, table types, global mutability, code bodies with local declarations</li>
+    <li>The custom <code>name</code> section: debug function names surfaced next to exports</li>
+    <li>Truncation and section-order warnings instead of silent mis-parses</li>
+  </ul>
+</section>
+<section class="sec">
+  <h2>Tested against a real engine</h2>
+  <p>The shared parser (<code>engine.js</code>) is exercised in Node against a hand-built corpus - an empty module, a module with imports/memory/globals/data, a module with debug names and a start function, a bad-magic file, and a truncated file. Structural facts come from the byte-level builder; import/export lists and validity are cross-checked against Node's V8 WebAssembly engine. 52 checks pass (<code>node tests/run_tests.js</code>).</p>
+</section>
+<footer>Built in the open by the app factory. <a href="https://github.com/iLanis-agent/wasmlens">Source on GitHub</a> - <a href="app.html">open the app</a></footer>
+</div>
+</body>
+</html>
