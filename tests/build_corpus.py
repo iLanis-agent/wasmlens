@@ -49,11 +49,11 @@ code = vu(1) + vu(len(vu(0) + body)) + vu(0) + body
 data_payload = b'\x41\x00\x0b' + vu(2) + b'hi'
 data = vu(1) + b'\x00' + data_payload
 m2 = (HDR + sec(1, types) + sec(2, imports) + sec(3, funcs) + sec(5, mem)
-      + sec(6, glob) + sec(7, exports) + sec(10, code) + sec(12, vu(1)) + sec(11, data))
+      + sec(6, glob) + sec(7, exports) + sec(12, vu(1)) + sec(10, code) + sec(11, data))
 open('tests/corpus/adder.wasm','wb').write(m2)
 expected.append({
   'file': 'adder.wasm', 'version': 1,
-  'sections': ['type','import','function','memory','global','export','code','datacount','data'],
+  'sections': ['type','import','function','memory','global','export','datacount','code','data'],
   'types': [{'params': [], 'results': ['i32']}, {'params': ['i32','i32'], 'results': ['i32']}],
   'imports': [{'module': 'env', 'name': 'log', 'kind': 'func', 'detail': {'typeidx': 0}}],
   'func_typeidx': [1],
