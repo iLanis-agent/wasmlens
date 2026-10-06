@@ -30,8 +30,8 @@
     "memory",
     "global",
     "export",
-    "code",
     "datacount",
+    "code",
     "data"
    ],
    "types": [
@@ -111,7 +111,28 @@
    "imported_funcs": 1,
    "total_funcs": 2,
    "function_names": {},
-   "wasm_valid": false
+   "wasm_valid": true,
+   "wasm_imports": [
+    {
+     "module": "env",
+     "name": "log",
+     "kind": "function"
+    }
+   ],
+   "wasm_exports": [
+    {
+     "name": "add",
+     "kind": "function"
+    },
+    {
+     "name": "memory",
+     "kind": "memory"
+    },
+    {
+     "name": "answer",
+     "kind": "global"
+    }
+   ]
   },
   {
    "file": "named.wasm",
